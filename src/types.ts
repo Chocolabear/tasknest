@@ -24,8 +24,22 @@ export interface Link {
   project_id: string;
   source_id: string;
   target_id: string;
+  source_handle?: 'left' | 'right';
+  target_handle?: 'left' | 'right';
 }
 
-export interface Snapshot { projects: Project[]; tasks: Task[]; links: Link[] }
-export type TaskInput = Pick<Task, 'title' | 'description' | 'due_date' | 'due_time'>;
-export type TaskPatch = Partial<TaskInput & Pick<Task, 'completed_at' | 'position_x' | 'position_y'>>;
+export interface Snapshot {
+  projects: Project[];
+  tasks: Task[];
+  links: Link[];
+}
+
+export type TaskInput = Pick<
+  Task,
+  'title' | 'description' | 'due_date' | 'due_time'
+>;
+
+export type TaskPatch = Partial<
+  TaskInput &
+    Pick<Task, 'completed_at' | 'position_x' | 'position_y'>
+>;

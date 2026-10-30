@@ -1,0 +1,19 @@
+.project-select-wrap {
+  position: relative;
+}
+
+.modal .project-select-wrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 46px;
+  cursor: pointer;
+}
+
+.project-select-wrap > svg {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #bcbcbc;
+}

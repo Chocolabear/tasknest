@@ -1,0 +1,179 @@
+.calendar-view {
+  padding-top: 5px;
+}
+
+.calendar-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  gap: 12px;
+}
+
+.calendar-toolbar h2 {
+  font-size: 20px;
+  color: #eee;
+}
+
+.calendar-toolbar > div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin: 0 24px;
+}
+
+.calendar-weekdays span {
+  padding: 8px;
+  text-align: center;
+  font-size: 11px;
+  color: #b5b5b5;
+}
+
+.calendar-weekdays span:first-child {
+  color: #f5a3aa;
+}
+
+.calendar-grid {
+  gap: 1px;
+  background: #454545;
+  border: 1px solid #454545;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.calendar-day {
+  min-height: 96px;
+  border: 0;
+  background: #2a2a2a;
+  color: #ddd;
+  text-align: left;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: flex-start;
+}
+
+.calendar-day:hover {
+  background: #3a3a3a;
+}
+
+.calendar-day.outside {
+  color: #909090;
+  background: #232323;
+}
+
+.calendar-day.selected {
+  background: #454545;
+  box-shadow: inset 0 0 0 2px #aaa;
+}
+
+.day-number {
+  font-size: 12px;
+  min-width: 25px;
+  text-align: center;
+}
+
+.calendar-day.today .day-number {
+  background: #ddd;
+  color: #222;
+  border-radius: 50%;
+}
+
+.calendar-count {
+  font-size: 10px;
+  color: #ccc;
+}
+
+.calendar-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.calendar-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.calendar-selection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 24px 6px;
+}
+
+.calendar-selection h3 {
+  font-size: 13px;
+  color: #ddd;
+}
+
+.task-project-label {
+  display: inline-block !important;
+  color: #ddd !important;
+  font-size: 10px !important;
+  background: #414141;
+  padding: 2px 7px;
+  border-radius: 5px;
+  max-width: 100%;
+}
+
+.date-map .map-node small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panel-toolbar {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media (max-width: 640px) {
+  .calendar-toolbar {
+    padding: 14px;
+  }
+
+  .calendar-grid,
+  .calendar-weekdays {
+    margin: 0 12px;
+  }
+
+  .calendar-day {
+    padding: 7px 3px;
+    min-height: 76px;
+    gap: 4px;
+  }
+
+  .calendar-count {
+    font-size: 9px;
+  }
+
+  .calendar-dots {
+    gap: 2px;
+  }
+
+  .calendar-dots i {
+    width: 5px;
+    height: 5px;
+  }
+
+  .calendar-selection {
+    margin: 16px 14px 6px;
+  }
+
+  .calendar-toolbar h2 {
+    font-size: 17px;
+  }
+
+  .view-switch button {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+}
