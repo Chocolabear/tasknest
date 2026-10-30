@@ -1,0 +1,6 @@
+{
+  "deno.enablePaths": [
+    "./supabase/functions"
+  ],
+  "deno.config": "./supabase/functions/google-calendar/deno.json"
+}
