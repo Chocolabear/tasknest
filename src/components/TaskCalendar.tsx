@@ -3,11 +3,12 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Project, Task } from '../types';
 import { TaskList } from './TaskList';
 import { GoogleCalendarSync } from './GoogleCalendarSync';
+import { sortByDeadline } from '../taskDates';
 import { monthDays, todayInSeoul } from '../calendar';
 import '../calendar.css';
 
-export function TaskCalendar({ tasks, projects, busy, onToggle, onEdit, onDelete }: {
-  tasks: Task[]; projects: Project[]; busy: boolean;
+export function TaskCalendar({ tasks, projects, busy, displayMode = 'titles', onToggle, onEdit, onDelete }: {
+  displayMode?: 'titles' | 'dots'; tasks: Task[]; projects: Project[]; busy: boolean;
   onToggle: (task: Task) => void; onEdit: (task: Task) => void; onDelete: (task: Task) => void;
 }) {
   const [syncing, setSyncing] = useState(false);
@@ -18,7 +19,7 @@ export function TaskCalendar({ tasks, projects, busy, onToggle, onEdit, onDelete
   const days = monthDays(year, m - 1);
   const names = Object.fromEntries(projects.map(p => [p.id, p.name]));
   const byDate = new Map<string, Task[]>();
-  for (const task of tasks) if (task.due_date) {
+  for (const task of sortByDeadline(tasks)) if (task.due_date) {
     const items = byDate.get(task.due_date) ?? [];
     items.push(task); byDate.set(task.due_date, items);
   }
@@ -44,7 +45,9 @@ export function TaskCalendar({ tasks, projects, busy, onToggle, onEdit, onDelete
           className={`calendar-day ${day.inMonth ? '' : 'outside'} ${selected === day.key ? 'selected' : ''} ${day.key === today ? 'today' : ''}`}
           onClick={() => { setSelected(day.key); if (!day.inMonth) setMonth(day.key.slice(0, 7)); }}>
           <span className="day-number">{day.day}</span>
-          {items.length > 0 && <><span className="calendar-count">{items.length}개</span><span className="calendar-dots">{items.slice(0, 4).map(t => <i key={t.id} style={{ background: projects.find(p => p.id === t.project_id)?.color ?? '#bbb', opacity: t.completed_at ? .45 : 1 }} />)}</span></>}
+          {items.length > 0 && (displayMode === 'titles' ? <span className="calendar-events">{items.slice(0, 3).map(t => <span key={t.id} className={`calendar-event ${t.completed_at ? 'done' : ''}`} style={{ borderLeftColor: projects.find(p => p.id === t.project_id)?.color ?? '#bbb' }} title={`${names[t.project_id]} · ${t.due_time?.slice(0,5) ?? ''} ${t.title}`}>
+            {t.due_time && <small>{t.due_time.slice(0,5)} </small>}{t.title}
+          </span>)}{items.length > 3 && <span className="calendar-more">+{items.length - 3}개 더 보기</span>}</span> : <><span className="calendar-count">{items.length}개</span><span className="calendar-dots">{items.slice(0,4).map(t => <i key={t.id} style={{ background: projects.find(p => p.id === t.project_id)?.color ?? '#bbb' }} />)}</span></>)}
         </button>;
       })}
     </div>
